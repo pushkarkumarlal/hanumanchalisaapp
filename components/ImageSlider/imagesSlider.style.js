@@ -13,6 +13,11 @@ const styles=StyleSheet.create({
         height: 450,
         width: 450,
         flexDirection: 'column',
-    }
+    },
+    gradient: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+      },
 })
 export default styles;

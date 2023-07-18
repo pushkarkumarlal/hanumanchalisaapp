@@ -10,7 +10,7 @@ const ChalisaTextScroll=()=>{
         
 
 
-<Text style={styles.styleText3}>-------------------------------------------------</Text>
+
 
 
             <Text style={{flex: 1,
@@ -21,6 +21,7 @@ const ChalisaTextScroll=()=>{
         color: 'black',
         paddingBottom: 10,}}>|| दोहा ||</Text>
 
+<Text style={styles.styleText3}>-------------------------------------------------</Text>
         
       <Text style={styles.styleTextTB2}>श्रीगुरु चरन सरोज रज निज मनु मुकुरु सुधारि ।</Text>
       <Text style={styles.styleTextTB2}>बरनउँ रघुबर बिमल जसु जो दायकु फल चारि ॥</Text>
@@ -36,7 +37,7 @@ const ChalisaTextScroll=()=>{
         fontSize: 30,
         fontWeight: 'bold',
         color: 'black',
-        padding: 10,}}>|| चौपाई || </Text>
+        padding: 0,}}>|| चौपाई || </Text>
 
 
       <Text style={styles.styleText3}>-------------------------------------------------</Text>
