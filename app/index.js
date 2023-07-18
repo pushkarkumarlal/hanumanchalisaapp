@@ -1,19 +1,21 @@
 import React from 'react'
-import {View,Text, SafeAreaView,} from 'react-native'
+import {View,Text, SafeAreaView,ScrollView,Image} from 'react-native'
 import {Stack,useRouter} from 'expo-router'
+
+
+import ImageSlider from '../components/ImageSlider/imageSlider';
+import ChalisaTextScroll from '../components/chalisaText/chalisaTextScroll';
+
 
 const Home=()=>{
     const router=useRouter();
     return(
-    <SafeAreaView style={{flex:1,backgroundColor:'lightgreen'}}>
-        <View style={{flex:1,align:'center'}}>
-            <Text style={{flex:1,textAlign:'center'}}>Hanuman Chalisa</Text>
-            <View style={{flex:1,align:'center'}}>
-            <Text style={{flex:1,textAlign:'center'}}>Hanuman Chalisa2</Text>
-        </View>
-        </View>
+    <SafeAreaView style={{flex:1}}>
+        
+       <ImageSlider/>
 
        
+
     </SafeAreaView>)
 }
 
