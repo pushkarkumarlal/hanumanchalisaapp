@@ -7,11 +7,6 @@ const ChalisaTextScroll=()=>{
         <>
         
         <ScrollView contentContainerStyle={{paddingBottom: 20}} style={styles.scroll}>
-        
-
-
-
-
 
             <Text style={{flex: 1,
         textAlign: 'center',
