@@ -18,7 +18,7 @@
       }
     },
     "android": {
-      "package": "com.pushkarlal.hanumanchalisa",
+      "package": "com.hanumanchalisa.counter",
       "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
@@ -54,6 +54,11 @@
         }
       ],
       "expo-image"
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "2ee5d243-ac4a-4e75-acc7-1d55357c7733"
+      }
+    }
   }
 }
