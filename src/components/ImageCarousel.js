@@ -1,24 +1,27 @@
 import { memo, useCallback, useState } from 'react';
-import { FlatList, Image, StyleSheet, Text, View } from 'react-native';
+import { FlatList, StyleSheet, View } from 'react-native';
+import { Image } from 'expo-image';
 
 import { colors } from '../theme';
 
 const Slide = memo(function Slide({ item, width, height }) {
-  const size = { width, height };
   return (
-    <View style={[size, styles.slide]} accessible accessibilityRole="image" accessibilityLabel={item.label}>
-      {/* Blurred copy fills the frame; the sharp image uses "contain" so paintings are never cropped. */}
-      <Image source={item.source} style={[size, styles.layer]} resizeMode="cover" blurRadius={25} />
-      <View style={[size, styles.layer, styles.dim]} />
-      <Image source={item.source} style={[size, styles.layer]} resizeMode="contain" />
-    </View>
+    <Image
+      source={item.source}
+      style={{ width, height }}
+      contentFit="cover"
+      contentPosition={{ left: '50%', top: item.focus ?? '30%' }}
+      accessibilityLabel={item.label}
+      accessible
+    />
   );
 });
 
 function ImageCarousel({ images, width, height }) {
   const [index, setIndex] = useState(0);
 
-  const onMomentumScrollEnd = useCallback(
+  // onScroll (not onMomentumScrollEnd) so dots update on every platform, including programmatic scrolls.
+  const onScroll = useCallback(
     (e) => {
       const next = Math.round(e.nativeEvent.contentOffset.x / width);
       setIndex(Math.max(0, Math.min(images.length - 1, next)));
@@ -32,7 +35,7 @@ function ImageCarousel({ images, width, height }) {
   );
 
   return (
-    <View style={{ width, height }}>
+    <View style={[styles.container, { width, height }]}>
       <FlatList
         data={images}
         keyExtractor={(item) => item.key}
@@ -41,7 +44,8 @@ function ImageCarousel({ images, width, height }) {
         pagingEnabled
         bounces={false}
         showsHorizontalScrollIndicator={false}
-        onMomentumScrollEnd={onMomentumScrollEnd}
+        onScroll={onScroll}
+        scrollEventThrottle={32}
         getItemLayout={getItemLayout}
         initialNumToRender={2}
         windowSize={3}
@@ -49,60 +53,38 @@ function ImageCarousel({ images, width, height }) {
         extraData={width}
       />
 
-      <View style={styles.footer} pointerEvents="none">
-        <Text style={styles.caption} numberOfLines={1}>
-          {images[index]?.label}
-        </Text>
-        <View style={styles.dots}>
-          {images.map((img, i) => (
-            <View key={img.key} style={[styles.dot, i === index && styles.dotActive]} />
-          ))}
-        </View>
+      <View style={styles.dots} pointerEvents="none">
+        {images.map((img, i) => (
+          <View key={img.key} style={[styles.dot, i === index && styles.dotActive]} />
+        ))}
       </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  slide: {
-    overflow: 'hidden',
+  container: {
     backgroundColor: '#1A0F08',
   },
-  layer: {
+  dots: {
     position: 'absolute',
-    top: 0,
-    left: 0,
-  },
-  dim: {
-    backgroundColor: 'rgba(0,0,0,0.25)',
-  },
-  footer: {
-    position: 'absolute',
+    bottom: 10,
     left: 0,
     right: 0,
-    bottom: 0,
-    paddingTop: 18,
-    paddingBottom: 8,
-    alignItems: 'center',
-    backgroundColor: 'rgba(0,0,0,0.35)',
-  },
-  caption: {
-    color: colors.white,
-    fontSize: 14,
-    fontWeight: '600',
-    marginBottom: 6,
-    paddingHorizontal: 16,
-    marginTop: -12,
-  },
-  dots: {
     flexDirection: 'row',
+    justifyContent: 'center',
   },
   dot: {
     width: 7,
     height: 7,
     borderRadius: 4,
     marginHorizontal: 4,
-    backgroundColor: 'rgba(255,255,255,0.5)',
+    backgroundColor: 'rgba(255,255,255,0.6)',
+    shadowColor: '#000',
+    shadowOpacity: 0.5,
+    shadowRadius: 2,
+    shadowOffset: { width: 0, height: 0 },
+    elevation: 1,
   },
   dotActive: {
     width: 18,

@@ -10,19 +10,19 @@ function haptic(fn) {
 }
 
 export default function JapCounter({ count, setCount }) {
-  const malas = Math.floor(count / MALA_SIZE);
-  const beads = count % MALA_SIZE;
-
   const increment = useCallback(() => {
     // Functional update: rapid taps are never lost to a stale value.
-    setCount((c) => c + 1);
-    if ((count + 1) % MALA_SIZE === 0) {
-      // A full mala (108) completed — stronger feedback.
-      haptic(() => Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success));
-    } else {
-      haptic(() => Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light));
-    }
-  }, [count, setCount]);
+    setCount((c) => {
+      const next = c + 1;
+      if (next % MALA_SIZE === 0) {
+        // A full mala (108) completed — stronger feedback.
+        haptic(() => Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success));
+      } else {
+        haptic(() => Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light));
+      }
+      return next;
+    });
+  }, [setCount]);
 
   const confirmReset = useCallback(() => {
     if (count === 0) return;
@@ -35,12 +35,14 @@ export default function JapCounter({ count, setCount }) {
   return (
     <View style={styles.container}>
       <View style={styles.stats}>
-        <Text style={styles.statLabel}>जाप</Text>
-        <Text style={styles.statValue} accessibilityLiveRegion="polite">
+        <Text
+          style={styles.statValue}
+          accessibilityLiveRegion="polite"
+          accessibilityLabel={`जाप गिनती ${count}`}
+          numberOfLines={1}
+          adjustsFontSizeToFit
+        >
           {count}
-        </Text>
-        <Text style={styles.statSub}>
-          माला {malas} · {beads}/{MALA_SIZE}
         </Text>
       </View>
 
@@ -84,19 +86,11 @@ const styles = StyleSheet.create({
     minWidth: 84,
     alignItems: 'center',
   },
-  statLabel: {
-    fontSize: 12,
-    color: colors.textMuted,
-  },
   statValue: {
-    fontSize: 28,
+    fontSize: 34,
     fontWeight: '800',
     color: colors.saffronDark,
     fontVariant: ['tabular-nums'],
-  },
-  statSub: {
-    fontSize: 11,
-    color: colors.textMuted,
   },
   countButton: {
     flex: 1,

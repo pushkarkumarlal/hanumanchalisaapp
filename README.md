@@ -8,7 +8,7 @@ and keep a jaap count (with mala tracking of 108) that is saved on the device.
 Built with Expo SDK 58 (React Native 0.88).
 
 ## Features
-- Swipeable gallery of 5 Hanuman Ji images (see `ASSET_CREDITS.md`)
+- Swipeable gallery of 3 public-domain Hanuman Ji images (see `ASSET_CREDITS.md`)
 - Jaap counter with haptic feedback, mala (108) progress, reset confirmation; count persists across restarts
 - Adjustable text size (persisted)
 - Screen stays awake while the app is open
@@ -34,7 +34,7 @@ App.js                      screen layout
 src/components/             ImageCarousel, JapCounter, ChalisaText, ErrorBoundary
 src/data/                   chalisa text, image list
 src/hooks/usePersistentNumber.js
-assets/images/              hanuman_1..5.jpg
+assets/images/              hanuman_2,4,5.jpg shipped (hanuman_1 not shipped)
 ```
 
 > ## Hanuman Chalisa Lyrics
