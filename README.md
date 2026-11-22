@@ -1,6 +1,41 @@
 
 ![hanuman](https://github.com/user-attachments/assets/5e62f3d7-9e3b-4e30-a000-34c441657c9f)
-# Normal App For Hanuman Chalisa
+# Hanuman Chalisa
+
+Free, ad-free devotional app: read the Hanuman Chalisa, swipe through images of Hanuman Ji,
+and keep a jaap count (with mala tracking of 108) that is saved on the device.
+
+Built with Expo SDK 58 (React Native 0.88).
+
+## Features
+- Swipeable gallery of 5 Hanuman Ji images (see `ASSET_CREDITS.md`)
+- Jaap counter with haptic feedback, mala (108) progress, reset confirmation; count persists across restarts
+- Adjustable text size (persisted)
+- Screen stays awake while the app is open
+- No internet, accounts, analytics or ads (see `PRIVACY.md`)
+
+## Develop
+```bash
+npm install
+npx expo start          # scan QR with Expo Go, or press a / i
+npx expo-doctor         # health check
+```
+
+## Release to Google Play
+1. Set your own `android.package` in `app.json` (it cannot be changed after the first upload).
+2. `npx eas-cli@latest login` then `npx eas-cli@latest build:configure`
+3. `npm run build:android` → produces a signed `.aab` (Expo manages the upload key).
+4. Upload the `.aab` in Play Console (or `npm run submit:android`), fill in Data safety
+   ("no data collected"), content rating, and host `PRIVACY.md` at a public URL.
+
+## Project layout
+```
+App.js                      screen layout
+src/components/             ImageCarousel, JapCounter, ChalisaText, ErrorBoundary
+src/data/                   chalisa text, image list
+src/hooks/usePersistentNumber.js
+assets/images/              hanuman_1..5.jpg
+```
 
 > ## Hanuman Chalisa Lyrics
 #### दोहा
